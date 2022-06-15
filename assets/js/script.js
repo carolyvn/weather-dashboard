@@ -7,7 +7,7 @@ let searchHistory = document.querySelector("#search-history")
 let currentDiv = document.querySelector("#current-forecast");
 let futureDiv = document.querySelector("#future-forecast");
 
-const APIKey = 'b115c02723b1dd1ad02dd81ddf7bd7ab';
+const APIKey = '6dfce695e145bfd386b9347a971d18ee';
 let cityname = "Seattle";
 let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&units=imperail" + "&appid=" + APIKey;
 
