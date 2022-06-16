@@ -8,7 +8,7 @@ let currentDiv = document.querySelector("#current-forecast");
 let futureDiv = document.querySelector("#future-forecast");
 
 const APIKey = '6dfce695e145bfd386b9347a971d18ee';
-let cityname = "Seattle";
+let cityname = "Shoreline";
 let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&units=imperail" + "&appid=" + APIKey;
 
 function getWeather () {
@@ -28,6 +28,7 @@ function displayData(data, searchCity) {
     currentDiv.innerHTML = '';
     futureDiv.innerHTML = '';
     cityInput.textContent = searchCity;
+    console.log(searchCity);
 
     let currentForecast = data.list[0];
 
@@ -35,29 +36,50 @@ function displayData(data, searchCity) {
     let currentCard = document.createElement('div');
     let h2 = document.createElement("h2")
     let currentDate = moment(data.dt).format("MM/DD/YYYY");
+    // let currentTime = 2;
     let forecastIcon = document.createElement("img");
     let temp = document.createElement("p");
     let humidity = document.createElement("p");
     let windspeed = document.createElement("p");
     let uvIndex = document.createElement("p");
 
-    h2.textContent = `${cityname} ${currentDate}`;
+    h2.textContent = `${cityname} (${currentDate})`;
     temp.textContent = "Temperature: " + ((currentForecast.main.temp - 273.15) * (9/5) + 32).toFixed(0) + "°F";
     humidity.textContent = "Humidity: " + currentForecast.main.humidity + "%";
     windspeed.textContent = "Windspeed: " + currentForecast.wind.speed + " mph";
     forecastIcon.setAttribute('src', `https://openweathermap.org/img/wn/${currentForecast.weather[0].icon}@2x.png`);
     console.log(h2.textContent, temp.textContent, humidity.textContent, windspeed.textContent);
 
+    // let currentTime = moment(data.dt).toDate().getTime();
     let lat = data.city.coord.lat;
     let lon = data.city.coord.lon;
     console.log(lat, lon);
-    let uvURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+    // let uvUrl = `https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=${lat}&lon=${lon}&dt=${currentTime}&appid=${APIKey}`;
+    // let uvURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey;
+    let oneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APIKey}`;
+  
 
-    fetch(uvURL)
-    .then(function(response) {
-        response.json
-        console.log(response.json);
-    })
+    fetch(oneCallUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+        uvIndex.textContent = "UV Index: " + data.current.uvi;
+        console.log(uvIndex); 
+
+        if (data.current.uvi <= 2) {
+          uvIndex.classList = "favorable";
+          console.log('favorable');
+        } else if (data.current.uvi > 2 && data.current.uvi <= 8) {
+          uvIndex.classList = "moderate";
+          console.log('moderate');
+        } else if (data.current.uvi > 8) {
+          uvIndex.classList = "severe";
+          console.log('severe');
+        }
+        
+      })
 
     
     // append element to card 
@@ -66,6 +88,7 @@ function displayData(data, searchCity) {
     currentCard.appendChild(temp);
     currentCard.appendChild(humidity);
     currentCard.appendChild(windspeed);
+    currentCard.appendChild(uvIndex);
 
     // append card to currentDiv
     currentDiv.appendChild(currentCard);
@@ -92,7 +115,7 @@ function displayData(data, searchCity) {
         let futureTemp = document.createElement("p");
         let futureHumidity = document.createElement("p");
 
-        card.classList = 'col-3 bg-primary text-white m-1'
+        card.classList = 'col-3 bg-primary text-white m-1 text-center'
         h4.classList = 'card-header';
         weatherIcon.classList = 'card-body';
         futureTemp.classList = 'card-body';
