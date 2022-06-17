@@ -4,7 +4,9 @@
 Created a dashboard that use the OpenWeather One Call API to retrieve weather data for cities.
 
 ## Deployed Link
-[Link](https://carolyvn.github.io/weather-dashboard/)
+👉[Link](https://carolyvn.github.io/weather-dashboard/)
+
+## Screenshoot
 
 ![weather-dashboard](https://user-images.githubusercontent.com/90424035/174266707-ff0e991d-c95d-4004-b49c-7f6528971ae9.png)
 
