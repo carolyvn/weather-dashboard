@@ -1,3 +1,4 @@
+
 let cities = [];
 
 let searchForm = document.querySelector("#search-form");
@@ -10,15 +11,18 @@ let currentDiv = document.querySelector("#current-forecast");
 let futureDiv = document.querySelector("#future-forecast");
 
 const APIKey = "6dfce695e145bfd386b9347a971d18ee";
-let cityname = "Shoreline";
-let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&units=imperail" + "&appid=" + APIKey;
+// let cityname = "Shoreline";
+// let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityname + "&units=imperail" + "&appid=" + APIKey;
 
-function getWeather() {
+function getWeather(city) {
+  let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperail" + "&appid=" + APIKey;
+
   fetch(queryURL)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
+      // console.log to examine the data
       console.log(data);
       displayData(data);
     });
@@ -30,10 +34,14 @@ function displayData(data) {
   currentDiv.innerHTML = "";
   futureDiv.innerHTML = "";
 
-  // get lat and lon of city
+  // get latitude and longtitude of city
   let lat = data.city.coord.lat;
   let lon = data.city.coord.lon;
   console.log(lat, lon);
+
+  // get cityname
+  let cityname = data.city.name;
+  console.log(cityname);
 
   let oneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APIKey}`;
 
@@ -58,7 +66,6 @@ function displayData(data) {
       let uvIndexEl = document.createElement("p");
       let uvIndex = document.createElement("span");
 
-
       // console.log(current.temp, current.humidity, current.uvi, current.wind_speed);
 
       h2.textContent = `${cityname} (${currentDate})`;
@@ -69,7 +76,7 @@ function displayData(data) {
       uvIndexEl.textContent = "UV Index: "
       uvIndex.textContent = current.uvi;
 
-      console.log(h2.textContent, temp.textContent, humidity.textContent, windspeed.textContent);
+      // console.log(h2.textContent, temp.textContent, humidity.textContent, windspeed.textContent);
 
       if (current.uvi <= 2) {
         uvIndex.classList = "favorable";
@@ -81,7 +88,6 @@ function displayData(data) {
         uvIndex.classList = "severe";
         console.log("severe");
       }
-
 
       // append element to card 
       uvIndexEl.appendChild(uvIndex);
@@ -95,18 +101,16 @@ function displayData(data) {
       // append card to currentDiv
       currentDiv.appendChild(currentCard);
 
-      // let future = data.daily;
-      // console.log(future);
 
-      //futureDiv
+      //create html element for futureDiv
       let heading = document.createElement("h2");
       let futureEl = document.createElement("div");
-      // let futureCard = document.createElement('div');
 
       heading.textContent = "5-Day Forecast:";
       heading.classList = "mb-3";
       futureEl.classList = "d-inline-flex flex-wrap p-2";
 
+      // append element to futureDiv
       futureDiv.appendChild(heading);
       futureDiv.appendChild(futureEl);
 
@@ -116,6 +120,7 @@ function displayData(data) {
       for (var i = 1; i <= 5; i++) {
         let dailyForecast = future[i];
 
+        // create card element 
         let futureCard = document.createElement("div");
         let h4 = document.createElement("h4");
         let weatherIcon = document.createElement("img");
@@ -133,6 +138,7 @@ function displayData(data) {
         futureHumidity.textContent = "Humidity: " + dailyForecast.wind_speed + " mph";
         weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`);
 
+        
         futureCard.appendChild(h4);
         futureCard.appendChild(weatherIcon);
         futureCard.appendChild(futureTemp);
@@ -144,14 +150,12 @@ function displayData(data) {
     });
 };
 
-searchBtn.addEventListener("click", getWeather());
 
-searchBtn.addEventListener("click", function(event) {
+searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
 
   let city = cityInput.value.trim();
-  
-  if(city) {
+  if (city) {
     getWeather(city);
     cities.unshift(city);
     cityInput.value = "";
@@ -160,4 +164,5 @@ searchBtn.addEventListener("click", function(event) {
   }
 
   localStorage.setItem("cities", JSON.stringify(cities));
+  console.log(cities);
 });
