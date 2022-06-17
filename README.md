@@ -3,6 +3,11 @@
 ## Description
 Created a dashboard that use the OpenWeather One Call API to retrieve weather data for cities.
 
+## Deployed Link
+[Link](https://carolyvn.github.io/weather-dashboard/)
+
+![weather-dashboard](https://user-images.githubusercontent.com/90424035/174266707-ff0e991d-c95d-4004-b49c-7f6528971ae9.png)
+
 ## User Story
     AS A traveler
     I WANT to see the weather outlook for multiple cities
@@ -21,5 +26,4 @@ Created a dashboard that use the OpenWeather One Call API to retrieve weather da
     WHEN I click on a city in the search history
     THEN I am again presented with current and future conditions for that city
 
-## Deployed Link
-[Link](https://carolyvn.github.io/weather-dashboard/)
+
