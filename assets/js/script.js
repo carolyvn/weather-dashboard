@@ -150,6 +150,24 @@ function displayData(data) {
     });
 };
 
+function saveSearch() {
+  localStorage.setItem("cities", JSON.stringify(cities));
+}
+
+function searchedList(city) {
+
+  console.log(city);
+
+  searchEl = document.createElement("button");
+  searchEl.innerHTML = city;
+  searchEl.classList = "btn d-flex w-100 btn-primary text-white m-1";
+  searchEl.setAttribute('citydata', city);
+  searchEl.setAttribute("type", "submit");
+
+  searchHistory.prepend(searchEl);
+};
+
+
 
 searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
@@ -163,6 +181,13 @@ searchBtn.addEventListener("click", function (event) {
     alert("Please enter a City!");
   }
 
-  localStorage.setItem("cities", JSON.stringify(cities));
-  console.log(cities);
+  saveSearch();
+  searchedList(city);
+});
+
+searchHistory.addEventListener("click", function (event) {
+  let city = event.target.getAttribute("citydata");
+  if (city) {
+    getWeather(city);
+  }
 });
