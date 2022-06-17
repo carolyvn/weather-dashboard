@@ -17,20 +17,26 @@
     <!-- main part -->
     <main class="container-fluid">
         <div class="row">
-            <form class="col-3 col-md-3 form-group">
-                <h2>Search for a City:</h2>
-                <input type="text" placeholder="Enter a City" id="cityname" class="form-control">
-                <button type="submit" id="searchBtn" class="btn btn-primary m-1">Search</button>
+            <div class="col-12 col-md-4 col-lg-3">
+                <form class="form-group" id="search-form">
+                    <h2 class="mt-1">Search for a City:</h2>
+                    <input type="text" placeholder="Enter a City" id="cityname" class="form-control">
+                    <button type="submit" id="searchBtn" class="btn btn-primary m-1 w-100">Search</button>
+                </form>
                 <hr>
                 <ul id="search-history">
-                    <li>Seattle</li>
+                    <li type="button">Seattle</li>
                 </ul>
-            </form>
+                <button type="submit" id="clearBtn" class="btn btn-primary m-1 w-100 d-none">Clear</button>
+            </div>
 
-            <div class="col-9 col-md-9">
-                <div id="current-forecast" class="row p-3 mb-3 border"></div>
 
-                <div id="future-forecast" class="row d-flex border"></div>
+            <div class="col-12 col-md-8 col-lg-9">
+                <div id="current-forecast" class="row p-3 mb-2 border"></div>
+
+                <div id="future-forecast" class="row border"></div>
+            
+                
             </div>
         </div>
 
