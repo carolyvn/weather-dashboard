@@ -3,12 +3,26 @@
 ## Description
 Created a dashboard that use the OpenWeather One Call API to retrieve weather data for cities.
 
+## Table of Contents
+ - [Description](#description)
+ - [Deployed Link](#deployed-link)
+ - [Screenshoot](#screenshoot)
+ - [Usage](#usage)
+ - [User Story](#user-story)
+ - [Questions](#questions)
+
 ## Deployed Link
 👉[Link](https://carolyvn.github.io/weather-dashboard/)
 
 ## Screenshoot
 
 ![weather-dashboard](https://user-images.githubusercontent.com/90424035/174266707-ff0e991d-c95d-4004-b49c-7f6528971ae9.png)
+
+## Usage
+ - The dashboard allows users to search for a city and get the current weather and future 5 day forecast.
+ - It will display the city name, the date, and icon represents weather condition of the city. It also include temperature, humidity, windspeed and uv index.
+ - UV index will be colored depends on the weather condition.
+ - Past searches will be stored in local storage.
 
 ## User Story
     AS A traveler
@@ -29,3 +43,7 @@ Created a dashboard that use the OpenWeather One Call API to retrieve weather da
     THEN I am again presented with current and future conditions for that city
 
 
+## Questions
+If you have any questions, please contact me at: 
+- GitHub: [@carolyvn](https://github.com/carolyvn)
+- Email: [@email me](dreamfx@hotmail.com)
